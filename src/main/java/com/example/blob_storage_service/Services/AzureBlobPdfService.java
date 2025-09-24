@@ -36,7 +36,11 @@ public class AzureBlobPdfService {
         if (file == null || file.isEmpty() || !file.getOriginalFilename().toLowerCase().endsWith(".pdf")) {
             throw new InvalidPdfException("Somente arquivos PDF são permitidos");
         }
-
+        // Checa o tamanho máximo
+        long maxSize = Long.parseLong(System.getenv("MAX_UPLOAD_SIZE"));
+        if (file.getSize() > maxSize) {
+            throw new InvalidPdfSizeException("O arquivo excede o tamanho máximo permitido de " + maxSize + " bytes.");
+        }
         //  Gera UUID aleatório
         String uuid = UUID.randomUUID().toString();
 

@@ -12,6 +12,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String,String>> handleInvalidPdf(InvalidPdfException ex) {
         return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
     }
+    @ExceptionHandler(InvalidPdfSizeException.class)
+    public ResponseEntity<?> handleInvalidPdfSizeException(InvalidPdfSizeException ex) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("error", ex.getMessage()));
+    }
+
 
     @ExceptionHandler(AzureUploadException.class)
     public ResponseEntity<Map<String,String>> handleAzureUpload(AzureUploadException ex) {

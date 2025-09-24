@@ -41,6 +41,11 @@ public class PdfController {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", e.getMessage()));
 
+        } catch (InvalidPdfSizeException e) {
+            //  Caso o tamanho do arquivo seja maior que 50MB
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", e.getMessage()));
+
         } catch (AzureUploadException | DBSaveException e) {
             //  Caso haja erro no upload para o Azure ou ao salvar no banco
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
